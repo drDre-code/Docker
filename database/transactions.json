@@ -1,0 +1,50 @@
+[
+ {
+  "createdAt": "2021-08-14T14:15:52.320Z",
+  "reference": "b4d594ee-edd2-415c-a547-e7482d2b477c",
+  "senderAccount": "2059333979",
+  "amount": 250000,
+  "receiverAccount": "0121754676",
+  "transferDescription": "giveaway"
+ },
+ {
+  "createdAt": "2021-08-14T14:19:14.794Z",
+  "reference": "7992788d-31ec-4ccf-8c54-cda8149c79e9",
+  "senderAccount": "0121754676",
+  "amount": 250000,
+  "receiverAccount": "2059333979",
+  "transferDescription": "Thank God it's weekend"
+ },
+ {
+  "createdAt": "2021-08-14T14:41:41.011Z",
+  "reference": "41fded14-0b55-444f-84c3-6bc91975b42d",
+  "senderAccount": "0121754676",
+  "amount": 250000,
+  "receiverAccount": "0121754676",
+  "transferDescription": "Thank God it's weekend"
+ },
+ {
+  "createdAt": "2021-08-14T15:21:07.731Z",
+  "reference": "769ff879-14e2-4f33-b554-dbe22c793249",
+  "senderAccount": "0121754676",
+  "amount": 250000,
+  "receiverAccount": "2059333979",
+  "transferDescription": "Thanks for being you"
+ },
+ {
+  "createdAt": "2021-08-14T17:56:53.375Z",
+  "reference": "83462877-c70b-491a-a405-698e5f730683",
+  "senderAccount": "2059333979",
+  "amount": 45000,
+  "receiverAccount": "0121754676",
+  "transferDescription": "just because it's saturday"
+ },
+ {
+  "createdAt": "2021-08-15T15:58:10.515Z",
+  "reference": "6c1599ae-894d-488e-8bbc-4c6f8b705476",
+  "senderAccount": "2059333979",
+  "amount": 45000,
+  "receiverAccount": "0121754676",
+  "transferDescription": "just because it's saturday"
+ }
+]
