@@ -6,18 +6,14 @@ let allTransactions: Transaction[];
 
 try {
   allAccounts = require('../database/accounts');
-} catch (err) {
-  console.log('No Account Database');
-}
-try {
   allTransactions = require('../database/transactions');
 } catch (err) {
-  console.log('No Transaction Database');
+  console.log('No Account Database');
 }
 
 describe("Get all Data", () => {
   it("should return 404 if there's no Account in database", async () => {
-    if (!allAccounts) {
+    if (allAccounts.length === 0) {
       await request(app)
         .get("/accounts")
         .set("Accept", "application/json")
@@ -25,7 +21,7 @@ describe("Get all Data", () => {
     }
   });
   it("should return 404 if there's no transaction in database", async () => {
-    if (!allTransactions) {
+    if (allTransactions.length === 0) {
       await request(app)
         .get("/transfer")
         .set("Accept", "application/json")
@@ -33,7 +29,7 @@ describe("Get all Data", () => {
     }
   });
   test("should return 200 if there's data in account's database", async () => {
-    if (allAccounts) {
+    if (allAccounts.length > 0) {
       await request(app)
         .get("/accounts")
         .set("Accept", "application/json")
@@ -41,7 +37,7 @@ describe("Get all Data", () => {
     }
   });
   test("should return 200 if there's data in transaction's database", async () => {
-    if (allTransactions) {
+    if (allTransactions.length > 0) {
       await request(app)
         .get("/transfer")
         .set("Accept", "application/json")
@@ -109,7 +105,7 @@ describe("Create Account", () => {
     if (user) {
       await request(app)
         .post('/create-account')
-        .send({ account: acc, amount: 50000 })
+        .send({ account: acc, amount: 500000 })
         .set("Accept", "application/json")
         .expect(404);
     }
@@ -133,7 +129,7 @@ describe("Create Account", () => {
   it("should return 404 if no account is specified while posting", async () => {
     await request(app)
       .post('/create-account')
-      .send({ amount: 500000 })
+      .send({ amount: 50000 })
       .set("Accept", "application/json")
       .expect(404);
   });
@@ -157,23 +153,25 @@ describe("Transfer Cash", () => {
   if (!allAccounts) {
     allAccounts = [];
   }
-  const acc1 = `${allTransactions[0].account}` || `${Math.floor(Math.random() * 10000000000)}`;
-  const acc2 = `${allTransactions[1].account}` || `${Math.floor(Math.random() * 10000000000)}`;
+
+  const acc1 = allAccounts[0] ? `${allAccounts[0].account}` : `${Math.floor(Math.random() * 10000000000)}`;
+  const acc2 = allAccounts[1] ? `${allAccounts[1].account}` : `${Math.floor(Math.random() * 10000000000)}`;
 
   const sender = allAccounts.find(x => x.account === acc1);
   const receiver = allAccounts.find(x => x.account === acc2);
-  it("should return 200 if all fields are filled correctly without issues", async () => {
-    if (sender && receiver) {
+  const amount = 5000;
+  it("should return 201 if all fields are filled correctly without issues", async () => {
+    if (sender && receiver && +sender.amount >= amount) {
       await request(app)
         .post('/transfer')
         .send({
           from: acc1,
           to: acc2,
           description: "just because you're beautiful",
-          amount: 50000
+          amount,
         })
         .set("Accept", "application/json")
-        .expect(404);
+        .expect(201);
     }
   });
   it("should return 404 if there's a matching Account in database", async () => {

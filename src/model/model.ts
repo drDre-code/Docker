@@ -7,13 +7,9 @@ let allTransactions: Transaction[];
 
 try {
   allAccounts = require('../../database/accounts');
-} catch (err) {
-  console.log('No Account Database');
-}
-try {
   allTransactions = require('../../database/transactions');
 } catch (err) {
-  console.log('No Transaction Database');
+  console.log('No Account Database');
 }
 
 
@@ -26,7 +22,15 @@ export async function findAllAccounts(): Promise<Account[]> {
     }
   });
 }
-
+export async function findAllTransaction(): Promise<Transaction[]> {
+  return new Promise((resolve, reject) => {
+    try {
+      resolve(allTransactions);
+    } catch (err) {
+      reject(err);
+    }
+  });
+}
 export function findAccount(account: string): Promise<Account | undefined> {
   return new Promise((resolve) => {
     if (!allAccounts) {
@@ -49,7 +53,7 @@ export async function create(userInfo: Account): Promise<Account | undefined> {
   });
 }
 
-export async function update(senderBalance: string, receiverBalance: string, description: string, from: string, to: string, amount: string | number):Promise<Transaction> {
+export async function update(senderBalance: string, receiverBalance: string, description: string, from: string, to: string, amount: string | number): Promise<Transaction> {
   return new Promise(resolve => {
     const senderIndex = allAccounts.findIndex((x) => x.account === from);
     const receiverIndex = allAccounts.findIndex((x) => x.account === to);
@@ -67,19 +71,9 @@ export async function update(senderBalance: string, receiverBalance: string, des
     if (!allTransactions) {
       allTransactions = [];
     }
-    allTransactions.push(transaction)
-    writeToFile('./database/transactions.json', allTransactions)
-    resolve(transaction)
-  });
-}
-
-export async function findAllTransaction(): Promise<Transaction[]> {
-  return new Promise((resolve, reject) => {
-    try {
-      resolve(allTransactions);
-    } catch (err) {
-      reject(err);
-    }
+    allTransactions.push(transaction);
+    writeToFile('./database/transactions.json', allTransactions);
+    resolve(transaction);
   });
 }
 
