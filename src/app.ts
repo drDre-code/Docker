@@ -28,7 +28,6 @@ app.use(function (
   err: createError.HttpError,
   req: express.Request,
   res: express.Response,
-  _next: express.NextFunction
 ) {
   // set locals, only providing error in development
   res.locals.message = err.message;
